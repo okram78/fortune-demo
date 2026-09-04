@@ -12,7 +12,7 @@ FROM eclipse-temurin:25-jre
 
 WORKDIR /app
 RUN apt-get update \
-    && apt-get install --no-install-recommends --yes fortune-mod fortunes \
+    && apt-get install --no-install-recommends --yes fortune-mod fortunes wget \
     && rm -rf /var/lib/apt/lists/*
 
 ENV PATH="/usr/games:${PATH}"

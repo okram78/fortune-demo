@@ -20,6 +20,19 @@ spec:
         path: /healthz
       routes:
         - host: fortune.localhost
+          path: /fortune
+    - name: fortune-web
+      source:
+        path: frontend
+      build:
+        strategy: dockerfile
+        file: Dockerfile
+      container:
+        port: 80
+      health:
+        path: /
+      routes:
+        - host: fortune.localhost
           path: /
   environments:
     - name: dev

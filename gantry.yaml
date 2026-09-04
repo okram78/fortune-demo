@@ -1,0 +1,31 @@
+apiVersion: gantryci.dev/v1alpha1
+kind: Project
+metadata:
+  name: fortune-demo
+spec:
+  repository:
+    provider: github
+    owner: okram78
+    name: fortune-demo
+  services:
+    - name: fortune
+      source:
+        path: .
+      build:
+        strategy: dockerfile
+        file: Dockerfile
+      container:
+        port: 12500
+      health:
+        path: /healthz
+      routes:
+        - host: fortune.localhost
+          path: /
+  environments:
+    - name: dev
+      target:
+        type: localhost
+        runtime: docker-compose
+        gateway: nginx
+      deploy:
+        trigger: manual

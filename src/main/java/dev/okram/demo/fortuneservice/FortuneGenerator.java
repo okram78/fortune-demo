@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 import java.io.BufferedReader;
 
 import java.io.InputStreamReader;
-import java.util.Random;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -24,8 +23,6 @@ public class FortuneGenerator {
 
     private final AtomicLong idGenerator = new AtomicLong();
 
-    private final Random random = new Random();
-
     private ScheduledExecutorService scheduler;
 
 
@@ -36,8 +33,8 @@ public class FortuneGenerator {
     @PostConstruct
     public void start() {
         scheduler = Executors.newSingleThreadScheduledExecutor();
-        LOGGER.info("Scheduling fortune generation...");
-        scheduler.schedule(this::publishFortuneEvent, 5, TimeUnit.SECONDS);
+        LOGGER.info("Scheduling fortune generation every 15 seconds...");
+        scheduler.scheduleAtFixedRate(this::publishFortuneEvent, 0, 15, TimeUnit.SECONDS);
     }
 
     @PreDestroy
@@ -63,10 +60,6 @@ public class FortuneGenerator {
         } catch (Exception e) {
             LOGGER.error("Unexpected error occurred while publishing fortune event", e);
         }
-
-        int delay = getRandomInterval();
-        LOGGER.info("Scheduling next fortune generation in {} seconds...", delay);
-        scheduler.schedule(this::publishFortuneEvent, delay, TimeUnit.SECONDS);
     }
 
     private String getFortuneFromCommand() {
@@ -89,7 +82,4 @@ public class FortuneGenerator {
         return stringBuilder.toString();
     }
 
-    private int getRandomInterval() {
-        return 5 + random.nextInt(10);
-    }
 }

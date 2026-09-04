@@ -3,6 +3,7 @@ package dev.okram.demo.fortuneservice.controller;
 import dev.okram.demo.fortuneservice.FortuneResponse;
 import dev.okram.demo.fortuneservice.service.FortuneService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.http.MediaType;
 import org.springframework.http.codec.ServerSentEvent;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +13,7 @@ import reactor.core.publisher.Flux;
 
 
 @RestController
+@CrossOrigin(origins = "http://localhost:5173")
 public class FortuneController {
 
     private final FortuneService fortuneService;

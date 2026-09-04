@@ -18,9 +18,7 @@ spec:
         port: 12500
       health:
         path: /healthz
-      routes:
-        - host: fortune.localhost
-          path: /fortune
+  web:
     - name: fortune-web
       source:
         path: frontend
@@ -40,5 +38,6 @@ spec:
         type: localhost
         runtime: docker-compose
         gateway: nginx
+        gatewayPort: 8080
       deploy:
         trigger: manual

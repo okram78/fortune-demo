@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+cat > "${CNB_OUTPUT_DIR}/run.Dockerfile" <<'EOF'
+ARG base_image
+FROM ${base_image}
+
+USER root
+RUN apt-get update \
+    && apt-get install --no-install-recommends --yes fortune-mod fortunes wget \
+    && rm -rf /var/lib/apt/lists/*
+ENV PATH="/usr/games:${PATH}"
+ARG user_id
+ARG group_id
+USER ${user_id}:${group_id}
+EOF

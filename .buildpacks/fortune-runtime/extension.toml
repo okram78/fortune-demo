@@ -1,0 +1,14 @@
+api = "0.10"
+
+[extension]
+id = "dev.okram.demo.fortune-runtime"
+name = "Fortune runtime packages"
+version = "0.1.0"
+
+[[targets]]
+os = "linux"
+arch = "amd64"
+
+[[targets]]
+os = "linux"
+arch = "arm64"

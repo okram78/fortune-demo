@@ -12,8 +12,15 @@ spec:
       source:
         path: .
       build:
-        strategy: dockerfile
-        file: Dockerfile
+        strategy: buildpacks
+        builder: paketobuildpacks/ubuntu-noble-builder
+        buildpacks:
+          - paketo-buildpacks/java
+        env:
+          BP_JVM_VERSION: "25"
+          BP_GRADLE_BUILD_ARGUMENTS: "--no-daemon -Dorg.gradle.welcome=never clean bootJar"
+        extensions:
+          - .buildpacks/fortune-runtime
       container:
         port: 12500
       health:

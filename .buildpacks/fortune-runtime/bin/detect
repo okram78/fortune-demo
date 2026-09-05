@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# This extension is explicitly selected by gantry.yaml and applies to this service.
+exit 0

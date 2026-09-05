@@ -55,9 +55,6 @@ spec:
         port: 80
       health:
         path: /
-      dependsOn:
-        - name: fortune
-          condition: healthy
       routes:
         - host: fortune.localhost
           path: /

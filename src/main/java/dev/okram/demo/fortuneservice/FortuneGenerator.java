@@ -33,8 +33,8 @@ public class FortuneGenerator {
     @PostConstruct
     public void start() {
         scheduler = Executors.newSingleThreadScheduledExecutor();
-        LOGGER.info("Scheduling fortune generation every 15 seconds...");
-        scheduler.scheduleAtFixedRate(this::publishFortuneEvent, 0, 15, TimeUnit.SECONDS);
+        LOGGER.info("Scheduling fortune generation every 30 seconds...");
+        scheduler.scheduleAtFixedRate(this::publishFortuneEvent, 0, 30, TimeUnit.SECONDS);
     }
 
     @PreDestroy

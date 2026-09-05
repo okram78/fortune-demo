@@ -1,0 +1,15 @@
+Third-party notices
+===================
+
+This demo displays fortune content provided by the Debian `fortune-mod` and
+`fortunes` packages.
+
+The fortune-mod upstream project:
+https://github.com/shlomif/fortune-mod
+
+The Debian package copyright and licensing information:
+https://metadata.ftp-master.debian.org/changelogs/main/f/fortune-mod/fortune-mod_1.99.1-9.2_copyright
+
+The fortune-mod program is distributed under the BSD-4-Clause license. The
+fortune data files may contain material from different original authors and
+are subject to the copyright and licensing notices applicable to that content.

@@ -14,16 +14,20 @@ import java.util.concurrent.atomic.AtomicLong;
 public class FortuneService {
 
     private static final String FORTUNE_EVENT_NAME = "fortune";
-    // This is for demonstration purposes only. In production, you should use a
-    // database or similar persistence mechanism to store the FortuneResponse objects and
-    // create the Flux dynamically from that source.
     private final Sinks.Many<ServerSentEvent<FortuneResponse>> sink = Sinks.many().replay().all();
 
+    private final FortuneRepository fortuneRepository;
     private final AtomicLong sseId = new AtomicLong(5000L);
+
+    public FortuneService(FortuneRepository fortuneRepository) {
+        this.fortuneRepository = fortuneRepository;
+    }
 
     @EventListener
     public void onFortuneEvent(FortuneEvent fortuneEvent){
-        FortuneResponse response = new FortuneResponse(fortuneEvent.getId(), fortuneEvent.getFortune());
+        long timesSeen = fortuneRepository.recordOccurrence(fortuneEvent.getFortune());
+        FortuneResponse response = new FortuneResponse(
+                fortuneEvent.getId(), fortuneEvent.getFortune(), timesSeen);
         ServerSentEvent<FortuneResponse> sse = ServerSentEvent.<FortuneResponse>builder()
                 .id( String.valueOf(sseId.incrementAndGet()))
                 .event(FORTUNE_EVENT_NAME)

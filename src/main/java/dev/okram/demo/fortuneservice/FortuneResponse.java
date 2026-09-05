@@ -1,4 +1,4 @@
 package dev.okram.demo.fortuneservice;
 
-public record FortuneResponse(Long id, String message) {
+public record FortuneResponse(Long id, String message, long timesSeen) {
 }

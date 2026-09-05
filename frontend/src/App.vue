@@ -2,6 +2,7 @@
 import { onMounted, onUnmounted, ref } from 'vue'
 
 const fortune = ref('')
+const timesSeen = ref(0)
 const connected = ref(false)
 let source
 
@@ -13,7 +14,9 @@ onMounted(() => {
   })
 
   source.addEventListener('fortune', (event) => {
-    fortune.value = JSON.parse(event.data).message
+    const data = JSON.parse(event.data)
+    fortune.value = data.message
+    timesSeen.value = data.timesSeen
   })
 
   source.addEventListener('error', () => {
@@ -28,11 +31,18 @@ onUnmounted(() => {
 
 <template>
   <main class="fortune-page">
-    <p v-if="!fortune" class="loading" :class="{ disconnected: !connected }">
-      Listening for a fortune...
-    </p>
-    <blockquote v-else class="fortune" aria-live="polite">
-      {{ fortune }}
-    </blockquote>
+    <Transition name="fortune" mode="out-in">
+      <p v-if="!fortune" class="loading" :class="{ disconnected: !connected }">
+        Listening for a fortune...
+      </p>
+      <blockquote v-else :key="fortune" class="fortune" aria-live="polite">
+        {{ fortune }}
+        <footer>Seen {{ timesSeen }} times</footer>
+      </blockquote>
+    </Transition>
+    <footer class="credits">
+      Fortune content provided by
+      <a href="/THIRD-PARTY-NOTICES.txt">fortune-mod and fortunes</a>.
+    </footer>
   </main>
 </template>

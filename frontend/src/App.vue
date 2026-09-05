@@ -37,7 +37,7 @@ onUnmounted(() => {
       </p>
       <blockquote v-else :key="fortune" class="fortune" aria-live="polite">
         {{ fortune }}
-        <footer>Seen {{ timesSeen }} times</footer>
+        <footer class="fortune-meta">Seen {{ timesSeen }} times</footer>
       </blockquote>
     </Transition>
     <footer class="credits">

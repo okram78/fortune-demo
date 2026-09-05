@@ -7,6 +7,14 @@ spec:
     provider: github
     owner: okram78
     name: fortune-demo
+  support:
+    - name: postgres
+      type: postgresql
+      version: "16"
+      database:
+        name: fortune
+        user: fortune
+        passwordSecretRef: fortune-postgres-password
   services:
     - name: fortune
       source:
@@ -25,6 +33,17 @@ spec:
         port: 12500
       health:
         path: /healthz
+      connections:
+        - name: database
+          target: postgres
+          variables:
+            host: DB_HOST
+            port: DB_PORT
+            database: DB_NAME
+            username: DB_USERNAME
+            password:
+              name: DB_PASSWORD
+              delivery: environment
   web:
     - name: fortune-web
       source:
@@ -36,6 +55,9 @@ spec:
         port: 80
       health:
         path: /
+      dependsOn:
+        - name: fortune
+          condition: healthy
       routes:
         - host: fortune.localhost
           path: /

@@ -44,6 +44,17 @@ body {
   text-wrap: balance;
 }
 
+.fortune-meta {
+  margin-top: 1.25rem;
+  color: #aaa69c;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.55rem;
+  font-style: normal;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
 .loading {
   margin: 0;
   color: #858176;

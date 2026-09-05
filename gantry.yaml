@@ -65,8 +65,9 @@ spec:
     - name: dev
       target:
         type: localhost
-        runtime: docker-compose
-        gateway: nginx
-        gatewayPort: 8080
+        runtime: kubernetes
+        gateway: haproxy
+        ingressClassName: haproxy
+        namespace: fortune-demo-dev
       deploy:
         trigger: manual

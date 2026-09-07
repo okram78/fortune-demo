@@ -25,7 +25,7 @@ spec:
         buildpacks:
           - paketo-buildpacks/java
         env:
-          BP_JVM_VERSION: "25"
+          BP_JVM_VERSION: "21"
           BP_GRADLE_BUILD_ARGUMENTS: "--no-daemon -Dorg.gradle.welcome=never clean bootJar"
         extensions:
           - .buildpacks/fortune-runtime

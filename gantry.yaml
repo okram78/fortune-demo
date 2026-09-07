@@ -63,8 +63,9 @@ spec:
       target:
         type: localhost
         runtime: kubernetes
-        gateway: haproxy
-        ingressClassName: haproxy
-        namespace: fortune-demo-dev
+        gateway: traefik
+        kubectx: colima
+        namespace: fortune-demo
+
       deploy:
         trigger: manual

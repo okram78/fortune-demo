@@ -14,7 +14,8 @@ import java.util.concurrent.atomic.AtomicLong;
 public class FortuneService {
 
     private static final String FORTUNE_EVENT_NAME = "fortune";
-    private final Sinks.Many<ServerSentEvent<FortuneResponse>> sink = Sinks.many().replay().all();
+    private static final int REPLAY_HISTORY_SIZE = 100;
+    private final Sinks.Many<ServerSentEvent<FortuneResponse>> sink = Sinks.many().replay().limit(REPLAY_HISTORY_SIZE);
 
     private final FortuneRepository fortuneRepository;
     private final AtomicLong sseId = new AtomicLong(5000L);
